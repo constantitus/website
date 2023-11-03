@@ -1,0 +1,179 @@
+/*  Cheatsheet for later use
+* backdrop-filter: blur(6px);
+*/
+
+:root {
+    --bg-color: rgba(5, 1, 26, 0.1);
+    --border: 1px solid rgba(251, 210, 226, 0.7);
+}
+
+.box {
+    backdrop-filter: blur(4px);
+    background-image: linear-gradient(to right, rgba(102, 26, 230, 0.1), rgba(204, 26, 230, 0.1));
+    border: 1px solid;
+    border-style: solid;
+    border-radius: 0.4rem;
+}
+
+a:hover {
+    background-image: linear-gradient(to right, rgba(102, 26, 230, 0.2), rgba(204, 26, 230, 0.2));
+    text-shadow: 0.1em 0.1em 1em #fff, 0 0 0 #ccc;
+    cursor: pointer;
+}
+
+.widget {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    height: 30px;
+    width: 100%;
+    max-width: 200px;
+}
+
+.widget-container {
+    display: flex;
+    justify-content: center;
+    grid-auto-flow: column;
+    gap: 10px;
+    width: 100%;
+}
+
+/* .widget span {
+    font-size: 25px;
+} */
+.webring a {
+    display: inline;
+}
+
+.webring img {
+    width: 120px;
+    height: 45px;
+    border: 2px solid #3c3e42;
+    margin: 5px;
+}
+
+.container {
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    width: 55%;
+    min-width: 300px;
+    clear: both;
+}
+
+.content {
+    padding: 10px;
+    display: flex;
+    clear: both;
+    column-gap: 10px;
+}
+
+.image {
+    width: 50%;
+}
+.image img {
+    width: 100%;
+}
+.text {
+    width: 90%
+}
+
+html, body {
+    color-scheme: transparent !important;
+    background-color: transparent !important;
+}
+
+body {
+    background:  linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../images/bg2.jpeg) no-repeat center top fixed;
+    background-size: cover;
+    image-rendering: optimizespeed;
+    font-family: FiraCode, 'Courier New', monospace;
+    text-align: justify;
+    word-break: break-word;
+    color: rgb(232, 234, 237);
+}
+
+@font-face {
+    font-family: FiraCode;
+    src: url(FiraCodeNerdFont-Medium.ttf);
+}
+
+.spacef {
+    height: 5px;
+}
+.spaceg {
+    height: 20px;
+}
+
+.animelist {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    width: 98%;
+    min-width: 300px;
+    height: 80%;
+    min-height: 500px;
+}
+
+p, b, a, h4 {
+    margin-top: 1px;
+    margin-bottom: 1px;
+    margin: 1px;
+    font-size: 16px;
+    letter-spacing: .12rem;
+}
+
+a, a:hover, a:visited, a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+.plain {
+    margin: auto;
+    width: 55%;
+    text-align: center;
+}
+
+img.fillwidth {
+    vertical-align: middle;
+    object-fit: contain;
+    width: 100%;
+}
+
+@media only screen and (max-width: 900px) {
+    .content {
+        width: 80%;
+    }
+}
+
+/* app */
+.frame {
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    width: 55%;
+    min-width: 300px;
+}
+.form {
+    color: white;
+}
+.input {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+.field {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+.upload {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+

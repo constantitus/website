@@ -1,0 +1,16 @@
+* This is a title.
+** This is a rating. keep it short
+   - This is a review.
+     It can be multiline.
+     The parser ignores the indentation.
+* You should never break this pattern!
+** Every title should have a rating
+   - And a review, even if it is blank.
+     If you break this pattern, the parser will get confused.
+    * The parser also ignores indentation on titles and ratings, although there'd be no reason to use any for them.
+         ** This is a blank review:
+- 
+* I use Neorg in neovim for note taking
+** It automatically indents the .norg file format
+   -
+
