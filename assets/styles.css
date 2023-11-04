@@ -15,8 +15,11 @@
     border-radius: 0.4rem;
 }
 
-a:hover {
+.widget:hover {
     background-image: linear-gradient(to right, rgba(102, 26, 230, 0.2), rgba(204, 26, 230, 0.2));
+}
+
+a:hover {
     text-shadow: 0.1em 0.1em 1em #fff, 0 0 0 #ccc;
     cursor: pointer;
 }
