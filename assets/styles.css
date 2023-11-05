@@ -89,6 +89,8 @@ html, body {
 }
 
 body {
+    /* Downloading the entire wallpaper (some of them are huge) is really stupid. That said, i'm still gonna do it
+    */
     background:  linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("https://mahi.ro/img") no-repeat center top fixed;
     background-size: cover;
     image-rendering: optimizespeed;
