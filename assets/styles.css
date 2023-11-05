@@ -20,7 +20,7 @@
 }
 
 a:hover {
-    text-shadow: 0.1em 0.1em 1em #fff, 0 0 0 #ccc;
+    text-shadow: 0.1em 0.1em 1em #edf, 0 0 0 #ccd !important;
     cursor: pointer;
 }
 
@@ -89,7 +89,7 @@ html, body {
 }
 
 body {
-    background:  linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(../images/bg2.jpeg) no-repeat center top fixed;
+    background:  linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("https://mahi.ro/img") no-repeat center top fixed;
     background-size: cover;
     image-rendering: optimizespeed;
     font-family: FiraCode, 'Courier New', monospace;
