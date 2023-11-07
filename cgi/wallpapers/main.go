@@ -62,7 +62,13 @@ func main() {
         fmt.Printf("</div>")
         fmt.Printf("</body></html>")
     } else {
-        // fmt.Printf("https://dl.mahi.ro/Wallpapers/%s", files[rand.Intn(len(files))].Name())
-        fmt.Printf("Status:302 \nLocation: https://dl.mahi.ro/Wallpapers/%s\r\n\r\n", files[rand.Intn(len(files))].Name())
+        for i:=0; i < 20; i++ { // 20 retries should be enough
+            randomfile := files[rand.Intn(len(files))].Name()
+            if CheckSuffix(randomfile) {
+                fmt.Printf("Status:302 \nLocation: https://dl.mahi.ro/Wallpapers/%s\r\n\r\n", randomfile)
+                return
+            }
+        }
+        fmt.Printf("Status: 302 \nLocation: https://mahi.ro/50x.html")
     }
 }
