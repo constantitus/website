@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/fs"
 	"math/rand"
 	"os"
 	"strconv"
@@ -10,7 +11,7 @@ import (
 
 const css = "style.css"
 
-func CheckSuffix(str string) bool {
+func checkSuffix(str string) bool {
     return strings.HasSuffix(str, ".jpg")   ||
     strings.HasSuffix(str, ".jpeg")         ||
     strings.HasSuffix(str, ".png")          ||
@@ -18,7 +19,7 @@ func CheckSuffix(str string) bool {
     strings.HasSuffix(str, ".gif")
 }
 
-func get_mode() int {
+func getMode() int {
     query_string := os.Getenv("QUERY_STRING")
     if query_string == "" {
         return -1
@@ -32,17 +33,24 @@ func get_mode() int {
     return -1
 }
 
-func main() {
-    dir, err := os.Open("./pics/")
+func openDir(input string) []fs.DirEntry {
+    dir, err := os.Open(input)
     files, err := dir.ReadDir(-1)
     if err != nil {
         panic(err)
     }
     dir.Close()
+    return files
+}
 
-    mode := get_mode()
+func main() {
+    mode := getMode()
 
-    if mode == 1 {
+    var files []fs.DirEntry
+    var url string
+
+    switch mode {
+    case 1:
         fmt.Printf("Content-Type: text/html; charset=utf-8\r\n\r\n")
         fmt.Printf("<!DOCTYPE html><html><head><title>Wallpapers</title>")
         style, err := os.ReadFile(css)
@@ -52,23 +60,29 @@ func main() {
 
         fmt.Printf("<body><div class=\"frame\">")
 
-
+        files = openDir("./pics/")
         for _, v := range files {
             name := v.Name()
-            if CheckSuffix(name) {
+            if checkSuffix(name) {
                 fmt.Printf("<p><img src=\"https://dl.mahi.ro/Wallpapers/%s\" width=900 class=\"image\" \\>", name)
             }
         }
         fmt.Printf("</div>")
         fmt.Printf("</body></html>")
-    } else {
-        for i:=0; i < 20; i++ { // 20 retries should be enough
-            randomfile := files[rand.Intn(len(files))].Name()
-            if CheckSuffix(randomfile) {
-                fmt.Printf("Status:302 \nLocation: https://dl.mahi.ro/Wallpapers/%s\r\n\r\n", randomfile)
-                return
-            }
-        }
-        fmt.Printf("Status: 302 \nLocation: https://mahi.ro/50x.html")
+        return
+    case 2:
+        files = openDir("./bgs/")
+        url = "mahi.ro/images/bgs"
+    default:
+        files = openDir("./pics/")
+        url = "dl.mahi.ro/Wallpapers"
     }
+    for i:=0; i < 20; i++ { // 20 retries should be enough
+        randomfile := files[rand.Intn(len(files))].Name()
+        if checkSuffix(randomfile) {
+            fmt.Printf("Status:302 \nLocation: https://%s/%s\r\n\r\n", url, randomfile)
+            return
+        }
+    }
+    fmt.Printf("Status: 302 \nLocation: https://mahi.ro/50x.html")
 }
