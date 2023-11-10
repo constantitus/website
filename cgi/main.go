@@ -10,7 +10,7 @@ import (
 const file = "anime.norg"
 const css = "style.css"
 
-func parse_list() (
+func parseList() (
     titles []string,
     ratings []string,
     reviews []string,
@@ -73,7 +73,7 @@ func parse_list() (
     return titles, ratings, reviews, linecount
 }
 
-func get_title_index() int {
+func getTitleIndex() int {
     query_string := os.Getenv("QUERY_STRING")
     if query_string == "" {
         return -1
@@ -90,7 +90,7 @@ func get_title_index() int {
 func main() {
     // print header
     fmt.Printf("Content-Type: text/html; charset=utf-8\r\n\r\n")
-    title, rating, review, linecount := parse_list()
+    title, rating, review, linecount := parseList()
 
     fmt.Printf("<!DOCTYPE html><html><head><title>Anime list</title>")
     style, err := os.ReadFile(css)
@@ -99,7 +99,7 @@ func main() {
     }
     fmt.Printf("<body><div class=\"frame\">")
 
-    title_index := get_title_index()
+    title_index := getTitleIndex()
 
     for i := 0; i < linecount; i++ {
         fmt.Printf("<p><a name=\"number%d\" href=\"https://mahi.ro/animelist/anim?title_index=%d#number%d\" target=\"iframe_a\">%d. <b>%s</b></a> %s\n",
