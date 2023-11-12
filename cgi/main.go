@@ -33,7 +33,7 @@ func parseList() (
         if tmp_data[i] == '\n' {
             skip_space:
             if tmp_data[i+1] == '-' {
-                i++
+                i+=2
             } else if tmp_data[i+1] == ' ' {
                 i++
                 goto skip_space;
@@ -43,6 +43,7 @@ func parseList() (
                 }
                 i+=3
             } else {
+                data[data_i] += "<p>"
                 goto exit_if
             }
             data = append(data, "")
@@ -102,7 +103,7 @@ func main() {
     title_index := getTitleIndex()
 
     for i := 0; i < linecount; i++ {
-        fmt.Printf("<p><a name=\"number%d\" href=\"https://mahi.ro/animelist/anim?title_index=%d#number%d\" target=\"iframe_a\">%d. <b>%s</b></a> %s\n",
+        fmt.Printf("<p class=\"title\"><a name=\"number%d\" href=\"https://mahi.ro/animelist/anim?title_index=%d#number%d\" target=\"iframe_a\">%d. <b>%s</b></a> %s\n",
             i, i, i, i+1, title[i], rating[i])
         if title_index == i {
             fmt.Printf("<p>%s\n", review[i])
