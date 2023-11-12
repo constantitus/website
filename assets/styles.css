@@ -40,12 +40,8 @@ a:hover {
     justify-content: center;
     grid-auto-flow: column;
     gap: 10px;
-    width: 100%;
 }
 
-/* .widget span {
-    font-size: 25px;
-} */
 .webring a {
     display: inline;
 }
@@ -61,7 +57,7 @@ a:hover {
     margin: auto;
     margin-top: 10px;
     margin-bottom: 15px;
-    width: 55%;
+    width: 900px;
     min-width: 300px;
     clear: both;
 }
