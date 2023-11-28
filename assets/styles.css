@@ -9,14 +9,14 @@
 
 .box {
     backdrop-filter: blur(4px);
-    background-image: linear-gradient(to right, rgba(102, 26, 230, 0.1), rgba(204, 26, 230, 0.1));
+    background-image: linear-gradient(to right bottom, rgba(102, 26, 230, 0.1), rgba(204, 26, 230, 0.1));
     border: 1px solid;
     border-style: solid;
     border-radius: 0.4rem;
 }
 
 .widget:hover {
-    background-image: linear-gradient(to right, rgba(102, 26, 230, 0.2), rgba(204, 26, 230, 0.2));
+    background-image: linear-gradient(to right bottom, rgba(102, 26, 230, 0.2), rgba(204, 26, 230, 0.2));
 }
 
 a:hover {

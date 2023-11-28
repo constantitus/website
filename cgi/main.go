@@ -10,12 +10,18 @@ import (
 const file = "anime.norg"
 const css = "style.css"
 
-func parseList() (
-    titles []string,
-    ratings []string,
-    reviews []string,
-    linecount int,
-    ) {
+type fields_t struct {
+    titles []string
+    ratings []string
+    reviews []string
+    linecount int
+}
+
+func main() {
+    PrintHtml(ParseList())
+}
+
+func ParseList() (fields fields_t) {
     bytes, err := os.ReadFile(file)
     if err != nil {
         panic(err)
@@ -59,22 +65,22 @@ func parseList() (
     for _, v := range data {
         switch state {
         case 0:
-            titles = append(titles, v)
+            fields.titles = append(fields.titles, v)
             state++
         case 1:
-            ratings = append(ratings, v)
+            fields.ratings = append(fields.ratings, v)
             state++
         case 2:
-            reviews = append(reviews, v)
+            fields.reviews = append(fields.reviews, v)
             state = 0
         }
     }
 
-    linecount = len(titles)
-    return titles, ratings, reviews, linecount
+    fields.linecount = len(fields.titles)
+    return
 }
 
-func getTitleIndex() int {
+func GetTitleByIndex() int {
     query_string := os.Getenv("QUERY_STRING")
     if query_string == "" {
         return -1
@@ -88,27 +94,50 @@ func getTitleIndex() int {
     return -1
 }
 
-func main() {
-    // print header
-    fmt.Printf("Content-Type: text/html; charset=utf-8\r\n\r\n")
-    title, rating, review, linecount := parseList()
+func PrintHtml(fields fields_t) {
+    fmt.Print("Content-Type: text/html; charset=utf-8\r\n\r\n")
 
-    fmt.Printf("<!DOCTYPE html><html><head><title>Anime list</title>")
+    var page strings.Builder
+
+    page.WriteString(`<!DOCTYPE html><html>
+<head>
+    <title>Anime list</title>`)
     style, err := os.ReadFile(css)
     if err == nil {
-        fmt.Printf("<style type=\"text/css\">%s</style>", string(style))
+        page.WriteString(`
+        <style type="text/css">`)
+        page.WriteString(string(style))
+        page.WriteString(`</style>`)
     }
-    fmt.Printf("<body><div class=\"frame\">")
+    fmt.Print(`
+</head>
+<body>
+    <div class="frame">`)
 
-    title_index := getTitleIndex()
+    title_index := GetTitleByIndex()
 
-    for i := 0; i < linecount; i++ {
-        fmt.Printf("<p class=\"title\"><a name=\"number%d\" href=\"https://mahi.ro/animelist/anim?title_index=%d#number%d\" target=\"iframe_a\">%d. <b>%s</b></a> %s\n",
-            i, i, i, i+1, title[i], rating[i])
+    for i := 0; i < fields.linecount; i++ {
+        page.WriteString(`<p class="title"><a name="number`)
+        page.WriteString(fmt.Sprint(i))
+        page.WriteString(`" href="https://mahi.ro/animelist/anim?title_index=`)
+        page.WriteString(fmt.Sprint(i))
+        page.WriteString(`#number`)
+        page.WriteString(fmt.Sprint(i))
+        page.WriteString(`" target="iframe_a">`)
+        page.WriteString(fmt.Sprint(i+1))
+        page.WriteString(`. <b>`)
+        page.WriteString(fields.titles[i])
+        page.WriteString(`</b></a> `)
+        page.WriteString(fields.ratings[i])
+        if fields.reviews[i] != " " { page.WriteString(" *") }
         if title_index == i {
-            fmt.Printf("<p>%s\n", review[i])
+            page.WriteString(`<p>`)
+            page.WriteString(fields.reviews[i])
         }
 
     }
-    fmt.Printf("</body></html>")
+    page.WriteString(`
+</body>
+</html>`)
+    fmt.Print(page.String())
 }

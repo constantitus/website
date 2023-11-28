@@ -1,3 +1,3 @@
-module animelist
+module anim
 
 go 1.21.1
